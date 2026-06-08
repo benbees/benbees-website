@@ -511,16 +511,20 @@
           </div>
         </div>
       </div>
-      <div class="contact-form reveal reveal-delay-1">
+      <form class="contact-form reveal reveal-delay-1" name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field" data-netlify-subject="New enquiry from BenBees website" action="/success">
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="hidden" name="_reply-to" value="%email%" />
+        <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
         <div class="form-row">
-          <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" placeholder="John" /></div>
-          <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" placeholder="Smith" /></div>
+          <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" name="first-name" placeholder="John" required /></div>
+          <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" name="last-name" placeholder="Smith" required /></div>
         </div>
-        <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="john@example.com" /></div>
-        <div class="form-group"><label class="form-label">Phone Number</label><input class="form-input" type="tel" placeholder="07700 000000" /></div>
-        <div class="form-group"><label class="form-label">Tell Us About Your Project</label><textarea class="form-textarea" placeholder="Describe your project or enquiry..."></textarea></div>
-        <button class="btn-submit" onclick="handleSubmit(this)">Send Message</button>
-      </div>
+        <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" name="email" placeholder="john@example.com" required /></div>
+        <div class="form-group"><label class="form-label">Phone Number</label><input class="form-input" type="tel" name="phone" placeholder="07700 000000" /></div>
+        <div class="form-group"><label class="form-label">Tell Us About Your Project</label><textarea class="form-textarea" name="message" placeholder="Describe your project or enquiry..." required></textarea></div>
+        <div data-netlify-recaptcha="true"></div>
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
     </div>
   </section>
 
