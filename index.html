@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="https://benbees.co.uk/wp-content/uploads/2026/02/cropped-Bee_Only-270x270.png" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,7 +27,8 @@
       background: rgba(245,240,232,0.92); backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(200,151,58,0.15); transition: padding 0.3s;
     }
-    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink); text-decoration: none; }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 0.6rem; }
+    .nav-logo img { width: 36px; height: 36px; object-fit: contain; }
     .nav-logo span { color: var(--gold); }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
@@ -170,7 +172,8 @@
 
     /* FOOTER */
     footer { background: #111110; padding: 2.5rem 4rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: rgba(255,255,255,0.5); }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 0.5rem; }
+    .footer-logo img { width: 28px; height: 28px; object-fit: contain; opacity: 0.5; }
     .footer-logo span { color: var(--gold); }
     .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.25); letter-spacing: 0.06em; }
     .footer-links { display: flex; gap: 2rem; }
@@ -223,7 +226,7 @@
 
   <!-- NAV -->
   <nav>
-    <a class="nav-logo" href="#hero">Ben<span>Bees</span></a>
+    <a class="nav-logo" href="#hero"><img src="https://benbees.co.uk/wp-content/uploads/2026/02/cropped-Bee_Only-270x270.png" alt="BenBees logo" />Ben<span>Bees</span></a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
@@ -530,7 +533,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Ben<span>Bees</span> Property Services</div>
+    <div class="footer-logo"><img src="https://benbees.co.uk/wp-content/uploads/2026/02/cropped-Bee_Only-270x270.png" alt="BenBees logo" />Ben<span>Bees</span> Property Services</div>
     <div class="footer-links">
       <a href="#about">About</a>
       <a href="#services">Services</a>
