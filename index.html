@@ -511,11 +511,12 @@
           </div>
         </div>
       </div>
-      <form class="contact-form reveal reveal-delay-1" action="https://formspree.io/f/xkoavopp" method="POST">
-        <input type="hidden" name="_subject" value="New Enquiry — BenBees Property Services" />
-        <input type="hidden" name="_replyto" value="" />
-        <input type="hidden" name="_autoresponse" value="Thank you for contacting BenBees Property Services! We've received your enquiry and will be in touch shortly. In the meantime, feel free to call us on 07971 686484. Kind regards, The BenBees Team" />
-        <input type="hidden" name="_next" value="/success.html" />
+      <form class="contact-form reveal reveal-delay-1" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="9d4e23f8-d131-4564-893b-f5549017e161" />
+        <input type="hidden" name="subject" value="New Enquiry — BenBees Property Services" />
+        <input type="hidden" name="autoresponse" value="Thank you for contacting BenBees Property Services! We've received your enquiry and will be in touch shortly. In the meantime, feel free to call us on 07971 686484. Kind regards, The BenBees Team" />
+        <input type="hidden" name="redirect" value="https://benbees-website.netlify.app/success.html" />
+        <input type="checkbox" name="botcheck" style="display:none;" />
         <div class="form-row">
           <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" name="first-name" placeholder="John" required /></div>
           <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" name="last-name" placeholder="Smith" required /></div>
