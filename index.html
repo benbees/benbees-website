@@ -511,10 +511,11 @@
           </div>
         </div>
       </div>
-      <form class="contact-form reveal reveal-delay-1" name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field" data-netlify-subject="New enquiry from BenBees website" action="/success">
-        <input type="hidden" name="form-name" value="contact" />
-        <input type="hidden" name="_reply-to" value="%email%" />
-        <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+      <form class="contact-form reveal reveal-delay-1" action="https://formspree.io/f/xkoavopp" method="POST">
+        <input type="hidden" name="_subject" value="New Enquiry — BenBees Property Services" />
+        <input type="hidden" name="_replyto" value="" />
+        <input type="hidden" name="_autoresponse" value="Thank you for contacting BenBees Property Services! We've received your enquiry and will be in touch shortly. In the meantime, feel free to call us on 07971 686484. Kind regards, The BenBees Team" />
+        <input type="hidden" name="_next" value="/success.html" />
         <div class="form-row">
           <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" name="first-name" placeholder="John" required /></div>
           <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" name="last-name" placeholder="Smith" required /></div>
@@ -522,7 +523,6 @@
         <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" name="email" placeholder="john@example.com" required /></div>
         <div class="form-group"><label class="form-label">Phone Number</label><input class="form-input" type="tel" name="phone" placeholder="07700 000000" /></div>
         <div class="form-group"><label class="form-label">Tell Us About Your Project</label><textarea class="form-textarea" name="message" placeholder="Describe your project or enquiry..." required></textarea></div>
-        <div data-netlify-recaptcha="true"></div>
         <button type="submit" class="btn-submit">Send Message</button>
       </form>
     </div>
