@@ -247,16 +247,16 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-left">
-      <div class="hero-eyebrow reveal">Old Windsor, Berkshire</div>
-      <h1 class="hero-title reveal reveal-delay-1">Your Property,<br><em>Our Passion.</em></h1>
-      <p class="hero-subtitle reveal reveal-delay-2">Dependable, end-to-end property solutions across residential and rental sectors — from repairs and renovations to full extensions and planning.</p>
+      <div class="hero-eyebrow reveal" id="hero-eyebrow">Old Windsor, Berkshire</div>
+      <h1 class="hero-title reveal reveal-delay-1" id="hero-title">Your Property,<br><em>Our Passion.</em></h1>
+      <p class="hero-subtitle reveal reveal-delay-2" id="hero-subtitle">Dependable, end-to-end property solutions across residential and rental sectors — from repairs and renovations to full extensions and planning.</p>
       <div class="hero-actions reveal reveal-delay-3">
         <a class="btn-primary" href="#projects">View Our Work</a>
         <a class="btn-ghost" href="#contact">Contact Us →</a>
       </div>
     </div>
     <div class="hero-right">
-      <img src="https://benbees.co.uk/wp-content/uploads/2026/02/106-rotated.jpg" alt="BenBees Property Services" />
+      <img id="hero-image" src="https://benbees.co.uk/wp-content/uploads/2026/02/106-rotated.jpg" alt="BenBees Property Services" />
       <div class="hero-badge reveal">
         <div class="hero-badge-num">10+</div>
         <div class="hero-badge-text">Years of<br>experience</div>
@@ -269,7 +269,7 @@
     <div class="about-grid">
       <div class="about-visual">
         <div class="about-box">
-          <img src="https://benbees.co.uk/wp-content/uploads/2026/02/111.jpg" alt="BenBees quality work" />
+          <img id="about-image" src="https://benbees.co.uk/wp-content/uploads/2026/02/111.jpg" alt="BenBees quality work" />
         </div>
         <div class="about-accent">
           <div class="about-accent-num">100%</div>
@@ -278,10 +278,10 @@
       </div>
       <div class="about-text">
         <div class="section-label reveal">Who We Are</div>
-        <h2 class="section-title reveal reveal-delay-1">Your property,<br>treated like <em>our own.</em></h2>
-        <p class="reveal reveal-delay-2" style="margin-top:1.5rem;">At BenBees Property Services, we specialise in delivering dependable, end-to-end property solutions across residential and rental sectors. Whether you're a homeowner, landlord, or developer, we're here to manage and maintain your property with care, precision, and professionalism.</p>
-        <p class="reveal reveal-delay-3">Our services cover the full spectrum of property needs — from managing rental properties to general repairs, full renovations, small extensions, and drawing architectural plans. No matter the size of the project, we approach every job with a focus on quality, transparency, and long-term value.</p>
-        <p class="about-tagline reveal">"Let's build your dreams together."</p>
+        <h2 class="section-title reveal reveal-delay-1" id="about-title">Your property,<br>treated like <em>our own.</em></h2>
+        <p class="reveal reveal-delay-2" id="about-text1" style="margin-top:1.5rem;">At BenBees Property Services, we specialise in delivering dependable, end-to-end property solutions across residential and rental sectors. Whether you're a homeowner, landlord, or developer, we're here to manage and maintain your property with care, precision, and professionalism.</p>
+        <p class="reveal reveal-delay-3" id="about-text2">Our services cover the full spectrum of property needs — from managing rental properties to general repairs, full renovations, small extensions, and drawing architectural plans. No matter the size of the project, we approach every job with a focus on quality, transparency, and long-term value.</p>
+        <p class="about-tagline reveal" id="about-tagline">"Let's build your dreams together."</p>
       </div>
     </div>
   </section>
@@ -549,6 +549,39 @@
       });
     }
 
+    async function loadSettings() {
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/settings`, {
+          headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+        });
+        const rows = await res.json();
+        const s = {};
+        rows.forEach(r => s[r.key] = r.value);
+
+        if (s.hero_eyebrow) document.getElementById('hero-eyebrow').textContent = s.hero_eyebrow;
+        if (s.hero_image) document.getElementById('hero-image').src = s.hero_image;
+        if (s.hero_subtitle) document.getElementById('hero-subtitle').textContent = s.hero_subtitle;
+        if (s.hero_title) {
+          const parts = s.hero_title.split(',');
+          document.getElementById('hero-title').innerHTML = parts.length > 1
+            ? `${parts[0]},<br><em>${parts.slice(1).join(',').trim()}</em>`
+            : s.hero_title;
+        }
+        if (s.about_image) document.getElementById('about-image').src = s.about_image;
+        if (s.about_title) {
+          const parts = s.about_title.split(',');
+          document.getElementById('about-title').innerHTML = parts.length > 1
+            ? `${parts[0]},<br>treated like <em>${parts.slice(1).join(',').trim()}</em>`
+            : s.about_title;
+        }
+        if (s.about_text1) document.getElementById('about-text1').textContent = s.about_text1;
+        if (s.about_text2) document.getElementById('about-text2').textContent = s.about_text2;
+        if (s.about_tagline) document.getElementById('about-tagline').textContent = s.about_tagline;
+        if (s.footer_copy) document.querySelector('.footer-copy').textContent = s.footer_copy;
+      } catch(e) { console.log('Settings load error', e); }
+    }
+
+    loadSettings();
     loadProjects();
   </script>
 </body>

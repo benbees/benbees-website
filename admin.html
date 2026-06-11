@@ -24,8 +24,8 @@
     .login-btn:hover { background: var(--gold-light); }
     .login-error { color: #e74c3c; font-size: 0.8rem; display: none; }
 
-    /* ADMIN NAV */
-    .admin-nav { background: var(--ink); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    /* NAV */
+    .admin-nav { background: var(--ink); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
     .admin-nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--white); display: flex; align-items: center; gap: 0.5rem; }
     .admin-nav-logo img { width: 30px; height: 30px; object-fit: contain; }
     .admin-nav-logo span { color: var(--gold); }
@@ -35,8 +35,16 @@
     .logout-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); padding: 0.4rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
     .logout-btn:hover { background: rgba(255,255,255,0.15); color: var(--white); }
 
+    /* TABS */
+    .admin-tabs { display: flex; background: var(--white); border-bottom: 2px solid var(--warm); max-width: 1100px; margin: 0 auto; }
+    .admin-tab { padding: 1rem 2rem; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: pointer; color: var(--muted); transition: all 0.2s; }
+    .admin-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .admin-tab:hover { color: var(--ink); }
+
     /* MAIN */
-    .admin-main { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+    .admin-main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
     .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
     .admin-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; }
     .admin-title em { font-style: italic; color: var(--gold); }
@@ -66,6 +74,12 @@
     .sort-btn { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 0.7rem; line-height: 1; padding: 2px; transition: color 0.2s; }
     .sort-btn:hover { color: var(--gold); }
 
+    /* STATS */
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
+    .stat-card { background: var(--white); padding: 1.5rem; border-left: 3px solid var(--gold); }
+    .stat-card-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--gold); line-height: 1; }
+    .stat-card-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.25rem; }
+
     /* MODAL */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 500; display: none; align-items: center; justify-content: center; padding: 1rem; }
     .modal-overlay.open { display: flex; }
@@ -75,44 +89,54 @@
     .modal-close { background: none; border: none; color: rgba(255,255,255,0.5); font-size: 1.5rem; cursor: pointer; transition: color 0.2s; }
     .modal-close:hover { color: var(--white); }
     .modal-body { padding: 2rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .modal-footer { padding: 1.5rem 2rem; border-top: 1px solid var(--warm); display: flex; justify-content: flex-end; gap: 1rem; background: var(--cream); position: sticky; bottom: 0; }
+
+    /* FORMS */
     .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
     .form-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
     .form-input, .form-textarea, .form-select { border: 1px solid var(--warm); background: var(--cream); color: var(--ink); padding: 0.75rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s; width: 100%; }
-    .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--gold); background: var(--white); }
-    .form-textarea { height: 100px; resize: vertical; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--gold); background: var(--white); }
+    .form-textarea { resize: vertical; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-    .img-preview-wrap { position: relative; }
-    .img-preview { width: 100%; height: 160px; object-fit: cover; display: block; border: 1px solid var(--warm); }
-    .img-replace-btn { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; text-align: center; padding: 0.4rem; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; opacity: 0; transition: opacity 0.2s; }
-    .img-preview-wrap:hover .img-replace-btn { opacity: 1; }
-    .img-preview-empty { width: 100%; height: 160px; background: var(--warm); border: 2px dashed rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; color: var(--muted); font-size: 0.8rem; cursor: pointer; transition: border-color 0.2s; }
-    .img-preview-empty:hover { border-color: var(--gold); color: var(--gold); }
-    .img-preview-empty .upload-icon { font-size: 2rem; }
-    .upload-input { display: none; }
-    .img-hint { font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; }
-    .modal-footer { padding: 1.5rem 2rem; border-top: 1px solid var(--warm); display: flex; justify-content: flex-end; gap: 1rem; background: var(--cream); position: sticky; bottom: 0; }
     .btn-cancel { background: transparent; border: 1px solid var(--warm); color: var(--muted); padding: 0.75rem 1.5rem; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
     .btn-cancel:hover { border-color: var(--ink); color: var(--ink); }
     .btn-save { background: var(--gold); color: var(--white); border: none; padding: 0.75rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
     .btn-save:hover { background: var(--gold-light); }
     .btn-save:disabled { background: var(--muted); cursor: not-allowed; }
 
+    /* IMAGE UPLOAD */
+    .img-preview-wrap { position: relative; }
+    .img-preview { width: 100%; height: 160px; object-fit: cover; display: block; border: 1px solid var(--warm); cursor: pointer; }
+    .img-replace-btn { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; text-align: center; padding: 0.4rem; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; opacity: 0; transition: opacity 0.2s; }
+    .img-preview-wrap:hover .img-replace-btn { opacity: 1; }
+    .img-preview-empty { width: 100%; height: 160px; background: var(--warm); border: 2px dashed rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; color: var(--muted); font-size: 0.8rem; cursor: pointer; transition: border-color 0.2s; }
+    .img-preview-empty:hover { border-color: var(--gold); color: var(--gold); }
+    .img-preview-empty .upload-icon { font-size: 2rem; }
+    .upload-input { display: none; }
+
+    /* SETTINGS */
+    .settings-section { background: var(--white); margin-bottom: 2rem; }
+    .settings-section-header { background: var(--ink); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .settings-section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--white); }
+    .settings-section-title em { font-style: italic; color: var(--gold); }
+    .settings-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .setting-row { display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: start; padding-bottom: 1.25rem; border-bottom: 1px solid var(--warm); }
+    .setting-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .setting-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-top: 0.75rem; }
+    .setting-hint { font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; font-weight: 300; text-transform: none; letter-spacing: 0; }
+    .btn-save-settings { background: var(--gold); color: var(--white); border: none; padding: 0.75rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; margin-top: 1rem; }
+    .btn-save-settings:hover { background: var(--gold-light); }
+
     /* LOADING */
     .loading { text-align: center; padding: 4rem; color: var(--muted); font-size: 0.9rem; }
     .spinner { display: inline-block; width: 32px; height: 32px; border: 3px solid var(--warm); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 1rem; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* STATS */
-    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
-    .stat-card { background: var(--white); padding: 1.5rem; border-left: 3px solid var(--gold); }
-    .stat-card-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--gold); line-height: 1; }
-    .stat-card-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.25rem; }
-
     @media (max-width: 700px) {
       .form-row { grid-template-columns: 1fr; }
       .stats-row { grid-template-columns: 1fr; }
-      .projects-table thead { display: none; }
-      .projects-table td { display: block; padding: 0.5rem 1rem; }
+      .setting-row { grid-template-columns: 1fr; }
+      .admin-tabs { overflow-x: auto; }
     }
   </style>
 </head>
@@ -142,34 +166,137 @@
     </div>
   </nav>
 
+  <!-- TABS -->
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="showPanel('projects')">📁 Projects</button>
+    <button class="admin-tab" onclick="showPanel('settings')">⚙️ Site Settings</button>
+  </div>
+
   <div class="admin-main">
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-card-num" id="stat-projects">—</div>
-        <div class="stat-card-label">Total Projects</div>
+
+    <!-- PROJECTS PANEL -->
+    <div class="tab-panel active" id="panel-projects">
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-card-num" id="stat-projects">—</div><div class="stat-card-label">Total Projects</div></div>
+        <div class="stat-card"><div class="stat-card-num" id="stat-with-planning">—</div><div class="stat-card-label">With Planning Drawings</div></div>
+        <div class="stat-card"><div class="stat-card-num" id="stat-locations">—</div><div class="stat-card-label">Locations Covered</div></div>
       </div>
-      <div class="stat-card">
-        <div class="stat-card-num" id="stat-with-planning">—</div>
-        <div class="stat-card-label">With Planning Drawings</div>
+      <div class="admin-header">
+        <h1 class="admin-title">Manage <em>Projects</em></h1>
+        <button class="btn-add" onclick="openModal()">+ Add New Project</button>
       </div>
-      <div class="stat-card">
-        <div class="stat-card-num" id="stat-locations">—</div>
-        <div class="stat-card-label">Locations Covered</div>
+      <div id="projects-container">
+        <div class="loading"><div class="spinner"></div><br>Loading projects...</div>
       </div>
     </div>
 
-    <div class="admin-header">
-      <h1 class="admin-title">Manage <em>Projects</em></h1>
-      <button class="btn-add" onclick="openModal()">+ Add New Project</button>
-    </div>
+    <!-- SETTINGS PANEL -->
+    <div class="tab-panel" id="panel-settings">
+      <div class="admin-header">
+        <h1 class="admin-title">Site <em>Settings</em></h1>
+      </div>
 
-    <div id="projects-container">
-      <div class="loading"><div class="spinner"></div><br>Loading projects...</div>
+      <!-- HERO -->
+      <div class="settings-section">
+        <div class="settings-section-header">
+          <div class="settings-section-title">🏠 <em>Hero</em> Section</div>
+        </div>
+        <div class="settings-body">
+          <div class="setting-row">
+            <div>
+              <div class="setting-label">Hero Image</div>
+              <div class="setting-hint">Main background image on the right side of the homepage</div>
+            </div>
+            <div>
+              <div class="img-preview-wrap">
+                <div class="img-preview-empty" id="hero_image-empty" onclick="document.getElementById('upload-hero_image').click()">
+                  <span class="upload-icon">📷</span><span>Click to upload</span>
+                </div>
+                <img class="img-preview" id="hero_image-img" style="display:none;" onclick="document.getElementById('upload-hero_image').click()" />
+                <div class="img-replace-btn" onclick="document.getElementById('upload-hero_image').click()">📷 Replace Image</div>
+                <input class="upload-input" type="file" id="upload-hero_image" accept="image/*" onchange="handleSettingUpload(this, 'hero_image')" />
+              </div>
+              <input class="form-input" type="text" id="setting-hero_image" placeholder="Or paste image URL" style="margin-top:0.5rem;" oninput="previewSetting('hero_image', this.value)" />
+            </div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Location Tag</div><div class="setting-hint">Small text above the title</div></div>
+            <input class="form-input" type="text" id="setting-hero_eyebrow" placeholder="e.g. Old Windsor, Berkshire" />
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Main Title</div><div class="setting-hint">Big heading on homepage. Use a comma to split onto two lines.</div></div>
+            <input class="form-input" type="text" id="setting-hero_title" placeholder="Your Property, Our Passion." />
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Subtitle</div><div class="setting-hint">Paragraph below the title</div></div>
+            <textarea class="form-input" id="setting-hero_subtitle" rows="3" placeholder="Dependable, end-to-end property solutions..."></textarea>
+          </div>
+          <button class="btn-save-settings" onclick="saveSettings(['hero_image','hero_eyebrow','hero_title','hero_subtitle'])">Save Hero Section</button>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="settings-section">
+        <div class="settings-section-header">
+          <div class="settings-section-title">👤 <em>About</em> Section</div>
+        </div>
+        <div class="settings-body">
+          <div class="setting-row">
+            <div>
+              <div class="setting-label">About Image</div>
+              <div class="setting-hint">"Who We Are" section photo</div>
+            </div>
+            <div>
+              <div class="img-preview-wrap">
+                <div class="img-preview-empty" id="about_image-empty" onclick="document.getElementById('upload-about_image').click()">
+                  <span class="upload-icon">📷</span><span>Click to upload</span>
+                </div>
+                <img class="img-preview" id="about_image-img" style="display:none;" onclick="document.getElementById('upload-about_image').click()" />
+                <div class="img-replace-btn" onclick="document.getElementById('upload-about_image').click()">📷 Replace Image</div>
+                <input class="upload-input" type="file" id="upload-about_image" accept="image/*" onchange="handleSettingUpload(this, 'about_image')" />
+              </div>
+              <input class="form-input" type="text" id="setting-about_image" placeholder="Or paste image URL" style="margin-top:0.5rem;" oninput="previewSetting('about_image', this.value)" />
+            </div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Section Title</div><div class="setting-hint">Heading in the about section. Use a comma to split lines.</div></div>
+            <input class="form-input" type="text" id="setting-about_title" placeholder="Your property, treated like our own." />
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">First Paragraph</div></div>
+            <textarea class="form-input" id="setting-about_text1" rows="4"></textarea>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Second Paragraph</div></div>
+            <textarea class="form-input" id="setting-about_text2" rows="4"></textarea>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Tagline</div><div class="setting-hint">Italic quote at the bottom of the about section</div></div>
+            <input class="form-input" type="text" id="setting-about_tagline" placeholder='"Let''s build your dreams together."' />
+          </div>
+          <button class="btn-save-settings" onclick="saveSettings(['about_image','about_title','about_text1','about_text2','about_tagline'])">Save About Section</button>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="settings-section">
+        <div class="settings-section-header">
+          <div class="settings-section-title">📄 <em>Footer</em></div>
+        </div>
+        <div class="settings-body">
+          <div class="setting-row">
+            <div><div class="setting-label">Copyright Text</div></div>
+            <input class="form-input" type="text" id="setting-footer_copy" placeholder="© 2026 BenBees Property Services. All rights reserved." />
+          </div>
+          <button class="btn-save-settings" onclick="saveSettings(['footer_copy'])">Save Footer</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
-<!-- MODAL -->
+<!-- PROJECT MODAL -->
 <div class="modal-overlay" id="modal">
   <div class="modal">
     <div class="modal-header">
@@ -190,62 +317,51 @@
       </div>
       <div class="form-group">
         <label class="form-label">Description</label>
-        <textarea class="form-textarea" id="field-description" placeholder="Brief description of the project..."></textarea>
+        <textarea class="form-input" id="field-description" rows="3" placeholder="Brief description..."></textarea>
       </div>
       <div class="form-group">
         <label class="form-label">Sort Order</label>
         <input class="form-input" type="number" id="field-sort" placeholder="1" />
       </div>
-
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Before Photo</label>
           <div class="img-preview-wrap">
             <div class="img-preview-empty" id="before-preview-empty" onclick="document.getElementById('before-upload').click()">
-              <span class="upload-icon">📷</span>
-              <span>Click to upload</span>
+              <span class="upload-icon">📷</span><span>Click to upload</span>
             </div>
             <img class="img-preview" id="before-preview-img" style="display:none;" />
-            <div class="img-replace-btn" onclick="document.getElementById('before-upload').click()">📷 Replace Image</div>
+            <div class="img-replace-btn" onclick="document.getElementById('before-upload').click()">📷 Replace</div>
             <input class="upload-input" type="file" id="before-upload" accept="image/*" onchange="handleUpload(this, 'before')" />
           </div>
-          <div class="form-group" style="margin-top:0.5rem;">
-            <input class="form-input" type="text" id="field-before" placeholder="Or paste image URL" oninput="previewFromUrl(this.value, 'before')" />
-          </div>
+          <input class="form-input" type="text" id="field-before" placeholder="Or paste URL" style="margin-top:0.5rem;" oninput="previewFromUrl(this.value, 'before')" />
         </div>
         <div class="form-group">
           <label class="form-label">After Photo</label>
           <div class="img-preview-wrap">
             <div class="img-preview-empty" id="after-preview-empty" onclick="document.getElementById('after-upload').click()">
-              <span class="upload-icon">📷</span>
-              <span>Click to upload</span>
+              <span class="upload-icon">📷</span><span>Click to upload</span>
             </div>
             <img class="img-preview" id="after-preview-img" style="display:none;" />
-            <div class="img-replace-btn" onclick="document.getElementById('after-upload').click()">📷 Replace Image</div>
+            <div class="img-replace-btn" onclick="document.getElementById('after-upload').click()">📷 Replace</div>
             <input class="upload-input" type="file" id="after-upload" accept="image/*" onchange="handleUpload(this, 'after')" />
           </div>
-          <div class="form-group" style="margin-top:0.5rem;">
-            <input class="form-input" type="text" id="field-after" placeholder="Or paste image URL" oninput="previewFromUrl(this.value, 'after')" />
-          </div>
+          <input class="form-input" type="text" id="field-after" placeholder="Or paste URL" style="margin-top:0.5rem;" oninput="previewFromUrl(this.value, 'after')" />
         </div>
       </div>
-
       <div class="form-group">
-        <label class="form-label">Planning Drawing (optional) 
-          <span style="margin-left:0.5rem; color:var(--red); cursor:pointer; font-weight:400;" onclick="clearPlanning()">✕ Clear</span>
+        <label class="form-label">Planning Drawing (optional)
+          <span style="margin-left:0.5rem; color:var(--red); cursor:pointer; font-weight:400; font-size:0.7rem;" onclick="clearPlanning()">✕ Remove</span>
         </label>
         <div class="img-preview-wrap">
           <div class="img-preview-empty" id="planning-preview-empty" onclick="document.getElementById('planning-upload').click()">
-            <span class="upload-icon">📐</span>
-            <span>Click to upload</span>
+            <span class="upload-icon">📐</span><span>Click to upload</span>
           </div>
           <img class="img-preview" id="planning-preview-img" style="display:none;" />
-          <div class="img-replace-btn" onclick="document.getElementById('planning-upload').click()">📷 Replace Image</div>
+          <div class="img-replace-btn" onclick="document.getElementById('planning-upload').click()">📷 Replace</div>
           <input class="upload-input" type="file" id="planning-upload" accept="image/*" onchange="handleUpload(this, 'planning')" />
         </div>
-        <div class="form-group" style="margin-top:0.5rem;">
-          <input class="form-input" type="text" id="field-planning" placeholder="Or paste image URL" oninput="previewFromUrl(this.value, 'planning')" />
-        </div>
+        <input class="form-input" type="text" id="field-planning" placeholder="Or paste URL" style="margin-top:0.5rem;" oninput="previewFromUrl(this.value, 'planning')" />
       </div>
     </div>
     <div class="modal-footer">
@@ -255,7 +371,6 @@
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
@@ -271,21 +386,26 @@
       document.getElementById('admin-screen').style.display = 'block';
       sessionStorage.setItem('bb_admin', '1');
       loadProjects();
+      loadSettings();
     } else {
       document.getElementById('login-error').style.display = 'block';
     }
   }
   document.getElementById('login-password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-
-  function doLogout() {
-    sessionStorage.removeItem('bb_admin');
-    location.reload();
-  }
-
+  function doLogout() { sessionStorage.removeItem('bb_admin'); location.reload(); }
   if (sessionStorage.getItem('bb_admin')) {
     document.getElementById('login-screen').classList.add('hidden');
     document.getElementById('admin-screen').style.display = 'block';
     loadProjects();
+    loadSettings();
+  }
+
+  // TAB PANELS
+  function showPanel(name) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(`panel-${name}`).classList.add('active');
+    event.target.classList.add('active');
   }
 
   // API
@@ -296,7 +416,7 @@
         'apikey': SUPABASE_KEY,
         'Authorization': `Bearer ${SUPABASE_KEY}`,
         'Content-Type': 'application/json',
-        'Prefer': method === 'POST' ? 'return=representation' : 'return=representation'
+        'Prefer': 'return=representation'
       },
       body: body ? JSON.stringify(body) : undefined
     });
@@ -305,96 +425,72 @@
     return text ? JSON.parse(text) : [];
   }
 
-  // LOAD PROJECTS
+  // UPLOAD
+  async function uploadFile(file, prefix) {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${prefix}-${Date.now()}.${fileExt}`;
+    const uploadRes = await fetch(`${SUPABASE_URL}/storage/v1/object/project-images/${fileName}`, {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': file.type },
+      body: file
+    });
+    if (!uploadRes.ok) throw new Error('Upload failed');
+    return `${SUPABASE_URL}/storage/v1/object/public/project-images/${fileName}`;
+  }
+
+  // ─── PROJECTS ───
   async function loadProjects() {
     try {
       const projects = await api('GET', 'projects?order=sort_order.asc');
-      renderStats(projects);
+      document.getElementById('stat-projects').textContent = projects.length;
+      document.getElementById('stat-with-planning').textContent = projects.filter(p => p.planning_image).length;
+      document.getElementById('stat-locations').textContent = new Set(projects.map(p => p.location)).size;
       renderTable(projects);
-    } catch (e) {
-      document.getElementById('projects-container').innerHTML = `<div class="loading">Error loading projects. Please refresh.</div>`;
+    } catch(e) {
+      document.getElementById('projects-container').innerHTML = '<div class="loading">Error loading projects.</div>';
     }
-  }
-
-  function renderStats(projects) {
-    document.getElementById('stat-projects').textContent = projects.length;
-    document.getElementById('stat-with-planning').textContent = projects.filter(p => p.planning_image).length;
-    const locs = new Set(projects.map(p => p.location));
-    document.getElementById('stat-locations').textContent = locs.size;
   }
 
   function renderTable(projects) {
-    if (!projects.length) {
-      document.getElementById('projects-container').innerHTML = `<div class="loading">No projects yet. Click "Add New Project" to get started.</div>`;
-      return;
-    }
+    if (!projects.length) { document.getElementById('projects-container').innerHTML = '<div class="loading">No projects yet.</div>'; return; }
     const rows = projects.map(p => `
       <tr>
-        <td>
-          ${p.after_image ? `<img class="thumb" src="${p.after_image}" alt="${p.title}" onerror="this.style.display='none'" />` : `<div class="thumb-placeholder">🏠</div>`}
-        </td>
+        <td>${p.after_image ? `<img class="thumb" src="${p.after_image}" onerror="this.style.display='none'" />` : `<div class="thumb-placeholder">🏠</div>`}</td>
         <td><strong>${p.title}</strong></td>
         <td><span class="location-badge">${p.location}</span></td>
-        <td style="max-width:200px; color:var(--muted); font-size:0.8rem;">${p.description ? p.description.substring(0, 80) + '...' : '—'}</td>
+        <td style="max-width:200px;color:var(--muted);font-size:0.8rem;">${(p.description||'').substring(0,80)}...</td>
         <td>${p.planning_image ? '✅' : '—'}</td>
-        <td>
-          <div class="sort-btns">
-            <button class="sort-btn" onclick="moveProject(${p.id}, ${p.sort_order}, -1)" title="Move up">▲</button>
-            <button class="sort-btn" onclick="moveProject(${p.id}, ${p.sort_order}, 1)" title="Move down">▼</button>
-          </div>
-        </td>
-        <td>
-          <div class="row-actions">
-            <button class="btn-edit" onclick="editProject(${p.id})">Edit</button>
-            <button class="btn-delete" onclick="deleteProject(${p.id}, '${p.title.replace(/'/g, "\\'")}')">Delete</button>
-          </div>
-        </td>
-      </tr>
-    `).join('');
-
+        <td><div class="sort-btns">
+          <button class="sort-btn" onclick="moveProject(${p.id},${p.sort_order},-1)">▲</button>
+          <button class="sort-btn" onclick="moveProject(${p.id},${p.sort_order},1)">▼</button>
+        </div></td>
+        <td><div class="row-actions">
+          <button class="btn-edit" onclick="editProject(${p.id})">Edit</button>
+          <button class="btn-delete" onclick="deleteProject(${p.id},'${p.title.replace(/'/g,"\\'")}')">Delete</button>
+        </div></td>
+      </tr>`).join('');
     document.getElementById('projects-container').innerHTML = `
       <table class="projects-table">
-        <thead>
-          <tr>
-            <th>Photo</th>
-            <th>Title</th>
-            <th>Location</th>
-            <th>Description</th>
-            <th>Planning</th>
-            <th>Order</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Photo</th><th>Title</th><th>Location</th><th>Description</th><th>Planning</th><th>Order</th><th>Actions</th></tr></thead>
         <tbody>${rows}</tbody>
-      </table>
-    `;
+      </table>`;
   }
 
-  // MODAL
-  let allProjects = [];
-
-  async function openModal(project = null) {
+  function openModal(project=null) {
     document.getElementById('modal-title').textContent = project ? 'Edit Project' : 'Add New Project';
-    document.getElementById('edit-id').value = project ? project.id : '';
-    document.getElementById('field-title').value = project ? project.title : '';
-    document.getElementById('field-location').value = project ? project.location : '';
-    document.getElementById('field-description').value = project ? project.description : '';
-    document.getElementById('field-sort').value = project ? project.sort_order : '';
-    document.getElementById('field-before').value = project ? (project.before_image || '') : '';
-    document.getElementById('field-after').value = project ? (project.after_image || '') : '';
-    document.getElementById('field-planning').value = project ? (project.planning_image || '') : '';
-
-    ['before', 'after', 'planning'].forEach(type => {
-      const url = project ? project[`${type}_image`] : null;
-      previewFromUrl(url || '', type);
-    });
-
+    document.getElementById('edit-id').value = project?.id || '';
+    document.getElementById('field-title').value = project?.title || '';
+    document.getElementById('field-location').value = project?.location || '';
+    document.getElementById('field-description').value = project?.description || '';
+    document.getElementById('field-sort').value = project?.sort_order || '';
+    document.getElementById('field-before').value = project?.before_image || '';
+    document.getElementById('field-after').value = project?.after_image || '';
+    document.getElementById('field-planning').value = project?.planning_image || '';
+    ['before','after','planning'].forEach(t => previewFromUrl(project?.[`${t}_image`]||'', t));
     document.getElementById('modal').classList.add('open');
   }
 
-  function closeModal() {
-    document.getElementById('modal').classList.remove('open');
-  }
+  function closeModal() { document.getElementById('modal').classList.remove('open'); }
 
   async function editProject(id) {
     const projects = await api('GET', `projects?id=eq.${id}`);
@@ -403,13 +499,8 @@
 
   async function deleteProject(id, title) {
     if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
-    try {
-      await api('DELETE', `projects?id=eq.${id}`);
-      showToast('Project deleted');
-      loadProjects();
-    } catch (e) {
-      showToast('Error deleting project', true);
-    }
+    try { await api('DELETE', `projects?id=eq.${id}`); showToast('Project deleted'); loadProjects(); }
+    catch(e) { showToast('Error deleting project', true); }
   }
 
   async function moveProject(id, currentOrder, direction) {
@@ -418,134 +509,135 @@
       const idx = projects.findIndex(p => p.id === id);
       const swapIdx = idx + direction;
       if (swapIdx < 0 || swapIdx >= projects.length) return;
-      const swapProject = projects[swapIdx];
-      await api('PATCH', `projects?id=eq.${id}`, { sort_order: swapProject.sort_order });
-      await api('PATCH', `projects?id=eq.${swapProject.id}`, { sort_order: currentOrder });
+      const swap = projects[swapIdx];
+      await api('PATCH', `projects?id=eq.${id}`, { sort_order: swap.sort_order });
+      await api('PATCH', `projects?id=eq.${swap.id}`, { sort_order: currentOrder });
       loadProjects();
-    } catch (e) {
-      showToast('Error reordering', true);
-    }
+    } catch(e) { showToast('Error reordering', true); }
   }
 
   async function saveProject() {
     const btn = document.getElementById('save-btn');
-    btn.disabled = true;
-    btn.textContent = 'Saving...';
-
+    btn.disabled = true; btn.textContent = 'Saving...';
     const id = document.getElementById('edit-id').value;
     const data = {
       title: document.getElementById('field-title').value.trim(),
       location: document.getElementById('field-location').value.trim(),
       description: document.getElementById('field-description').value.trim(),
-      sort_order: parseInt(document.getElementById('field-sort').value) || 99,
-      before_image: document.getElementById('field-before').value.trim() || null,
-      after_image: document.getElementById('field-after').value.trim() || null,
-      planning_image: document.getElementById('field-planning').value.trim() || null,
+      sort_order: parseInt(document.getElementById('field-sort').value)||99,
+      before_image: document.getElementById('field-before').value.trim()||null,
+      after_image: document.getElementById('field-after').value.trim()||null,
+      planning_image: document.getElementById('field-planning').value.trim()||null,
     };
-
-    if (!data.title || !data.location) {
-      showToast('Title and location are required', true);
-      btn.disabled = false;
-      btn.textContent = 'Save Project';
-      return;
-    }
-
+    if (!data.title||!data.location) { showToast('Title and location required', true); btn.disabled=false; btn.textContent='Save Project'; return; }
     try {
-      if (id) {
-        await api('PATCH', `projects?id=eq.${id}`, data);
-      } else {
-        await api('POST', 'projects', data);
-      }
+      if (id) { await api('PATCH', `projects?id=eq.${id}`, data); }
+      else { await api('POST', 'projects', data); }
       showToast(id ? 'Project updated!' : 'Project added!');
-      closeModal();
-      loadProjects();
-    } catch (e) {
-      showToast('Error saving project', true);
-    }
-
-    btn.disabled = false;
-    btn.textContent = 'Save Project';
+      closeModal(); loadProjects();
+    } catch(e) { showToast('Error saving', true); }
+    btn.disabled=false; btn.textContent='Save Project';
   }
 
-  // IMAGE PREVIEW
-  function previewFromUrl(url, type) {
-    const empty = document.getElementById(`${type}-preview-empty`);
-    const img = document.getElementById(`${type}-preview-img`);
-    if (url) {
-      img.src = url;
-      img.style.display = 'block';
-      img.style.cursor = 'pointer';
-      img.title = 'Click to replace image';
-      empty.style.display = 'none';
-      // Remove old listener before adding new one
-      img.onclick = null;
-      img.onclick = () => document.getElementById(`${type}-upload`).click();
-    } else {
-      img.style.display = 'none';
-      img.onclick = null;
-      empty.style.display = 'flex';
-    }
-  }
-
-  // Also make sure clicking anywhere in the wrap triggers upload
-  document.addEventListener('DOMContentLoaded', () => {
-    ['before', 'after', 'planning'].forEach(type => {
-      const wrap = document.getElementById(`${type}-preview-empty`);
-      if (wrap) wrap.onclick = () => document.getElementById(`${type}-upload`).click();
-    });
-  });
-
-  async function handleUpload(input, type) {
-    const file = input.files[0];
-    if (!file) return;
-
-    const btn = document.getElementById('save-btn');
-    btn.disabled = true;
-    btn.textContent = 'Uploading...';
-
-    try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${type}-${Date.now()}.${fileExt}`;
-
-      const uploadRes = await fetch(`${SUPABASE_URL}/storage/v1/object/project-images/${fileName}`, {
-        method: 'POST',
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Content-Type': file.type,
-        },
-        body: file
-      });
-
-      if (!uploadRes.ok) throw new Error('Upload failed');
-
-      const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/project-images/${fileName}`;
-      document.getElementById(`field-${type}`).value = publicUrl;
-      previewFromUrl(publicUrl, type);
-      showToast('Image uploaded!');
-    } catch (e) {
-      showToast('Upload failed — try pasting a URL instead', true);
-    }
-
-    btn.disabled = false;
-    btn.textContent = 'Save Project';
-  }
-
-  // Clear planning image
   function clearPlanning() {
     document.getElementById('field-planning').value = '';
     previewFromUrl('', 'planning');
   }
 
-  // TOAST
-  function showToast(msg, error = false) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = `toast${error ? ' error' : ''} show`;
-    setTimeout(() => t.classList.remove('show'), 3000);
+  function previewFromUrl(url, type) {
+    const empty = document.getElementById(`${type}-preview-empty`);
+    const img = document.getElementById(`${type}-preview-img`);
+    if (url) {
+      img.src = url; img.style.display='block'; img.style.cursor='pointer';
+      img.onclick = () => document.getElementById(`${type}-upload`).click();
+      empty.style.display='none';
+    } else {
+      img.style.display='none'; img.onclick=null; empty.style.display='flex';
+    }
   }
 
-  // Close modal on overlay click
+  async function handleUpload(input, type) {
+    const file = input.files[0]; if (!file) return;
+    const btn = document.getElementById('save-btn');
+    btn.disabled=true; btn.textContent='Uploading...';
+    try {
+      const url = await uploadFile(file, type);
+      document.getElementById(`field-${type}`).value = url;
+      previewFromUrl(url, type);
+      showToast('Image uploaded!');
+    } catch(e) { showToast('Upload failed — try pasting a URL', true); }
+    btn.disabled=false; btn.textContent='Save Project';
+  }
+
+  // ─── SETTINGS ───
+  let settingsCache = {};
+
+  async function loadSettings() {
+    try {
+      const rows = await api('GET', 'settings');
+      rows.forEach(r => { settingsCache[r.key] = r.value; });
+      // Populate fields
+      Object.keys(settingsCache).forEach(key => {
+        const el = document.getElementById(`setting-${key}`);
+        if (el) el.value = settingsCache[key] || '';
+        // Preview images
+        if (key.endsWith('_image')) previewSetting(key, settingsCache[key]);
+      });
+    } catch(e) { console.error('Error loading settings', e); }
+  }
+
+  function previewSetting(key, url) {
+    const empty = document.getElementById(`${key}-empty`);
+    const img = document.getElementById(`${key}-img`);
+    if (!empty || !img) return;
+    if (url) {
+      img.src = url; img.style.display = 'block'; empty.style.display = 'none';
+    } else {
+      img.style.display = 'none'; empty.style.display = 'flex';
+    }
+  }
+
+  async function saveSettings(keys) {
+    try {
+      for (const key of keys) {
+        const el = document.getElementById(`setting-${key}`);
+        if (!el) continue;
+        const value = el.value.trim();
+        // Upsert
+        await fetch(`${SUPABASE_URL}/rest/v1/settings`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify({ key, value })
+        });
+        settingsCache[key] = value;
+      }
+      showToast('Settings saved! Refresh the live site to see changes.');
+    } catch(e) { showToast('Error saving settings', true); }
+  }
+
+  async function handleSettingUpload(input, key) {
+    const file = input.files[0]; if (!file) return;
+    try {
+      showToast('Uploading...');
+      const url = await uploadFile(file, key);
+      document.getElementById(`setting-${key}`).value = url;
+      previewSetting(key, url);
+      showToast('Image uploaded! Click Save to apply.');
+    } catch(e) { showToast('Upload failed — try pasting a URL', true); }
+  }
+
+  // TOAST
+  function showToast(msg, error=false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.className = `toast${error?' error':''} show`;
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
   document.getElementById('modal').addEventListener('click', e => {
     if (e.target === document.getElementById('modal')) closeModal();
   });
