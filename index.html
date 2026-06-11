@@ -125,13 +125,14 @@
     .slider-label-after { right: 0.75rem; background: var(--gold); color: white; }
 
     /* Planning tab */
-    .project-tabs { display: flex; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .project-tabs { display: flex; border-bottom: 1px solid rgba(0,0,0,0.06); background: var(--white); }
     .project-tab { flex: 1; padding: 0.6rem; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: none; border: none; cursor: pointer; color: var(--muted); transition: all 0.2s; border-bottom: 2px solid transparent; margin-bottom: -1px; }
     .project-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
-    .planning-img { width: 100%; height: 280px; object-fit: cover; object-position: center; }
-    .project-card:first-child .planning-img { height: 380px; }
+    .project-media { position: relative; }
+    .slider-wrap { height: 280px; }
+    .planning-img { width: 100%; height: 280px; object-fit: cover; object-position: center; display: block; }
 
     /* TRUST */
     #trust { background: var(--warm); padding: 5rem 4rem; }
@@ -485,6 +486,8 @@
       grid.innerHTML = projects.map((p, i) => {
         const isFirst = i === 0;
         const hasPlan = !!p.planning_image;
+        const uid = `proj-${p.id}`;
+
         const sliderHtml = `
           <div class="slider-wrap" data-slider>
             <div class="slider-after"><img src="${p.after_image || ''}" alt="After" /></div>
@@ -495,20 +498,24 @@
             <span class="slider-label-after">After</span>
           </div>`;
 
-        const innerHtml = hasPlan ? `
-          <div class="project-tabs">
-            <button class="project-tab active" onclick="switchTab(this, 'slider')">Before / After</button>
-            <button class="project-tab" onclick="switchTab(this, 'plan')">Planning Drawing</button>
-          </div>
-          <div class="tab-content active" data-tab="slider">${sliderHtml}</div>
-          <div class="tab-content" data-tab="plan">
-            <img class="planning-img" src="${p.planning_image}" alt="Planning Drawing" />
-          </div>` : sliderHtml;
+        const mediaHtml = hasPlan ? `
+          <div class="project-media">
+            <div class="project-tabs">
+              <button class="project-tab active" onclick="switchTab(this, 'slider-${uid}')">Before / After</button>
+              <button class="project-tab" onclick="switchTab(this, 'plan-${uid}')">Planning Drawing</button>
+            </div>
+            <div class="tab-content active" data-tab="slider-${uid}">${sliderHtml}</div>
+            <div class="tab-content" data-tab="plan-${uid}">
+              <img class="planning-img" src="${p.planning_image}" alt="Planning Drawing" />
+            </div>
+          </div>` : `<div class="project-media">${sliderHtml}</div>`;
 
         return `
-          <div class="project-card reveal${i % 3 === 1 ? ' reveal-delay-1' : i % 3 === 2 ? ' reveal-delay-2' : ''}${isFirst ? '' : ''}">
-            <div class="project-location">${p.location}</div>
-            ${innerHtml}
+          <div class="project-card reveal${i % 3 === 1 ? ' reveal-delay-1' : i % 3 === 2 ? ' reveal-delay-2' : ''}" style="${isFirst ? 'grid-column: span 2;' : ''}">
+            <div style="position:relative;">
+              <div class="project-location">${p.location}</div>
+              ${mediaHtml}
+            </div>
             <div class="project-info">
               <div class="project-title">${p.title}</div>
               <p class="project-desc">${p.description || ''}</p>
