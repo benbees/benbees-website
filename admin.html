@@ -231,7 +231,9 @@
       </div>
 
       <div class="form-group">
-        <label class="form-label">Planning Drawing (optional)</label>
+        <label class="form-label">Planning Drawing (optional) 
+          <span style="margin-left:0.5rem; color:var(--red); cursor:pointer; font-weight:400;" onclick="clearPlanning()">✕ Clear</span>
+        </label>
         <div class="img-preview-wrap">
           <div class="img-preview-empty" id="planning-preview-empty" onclick="document.getElementById('planning-upload').click()">
             <span class="upload-icon">📐</span>
@@ -527,6 +529,12 @@
 
     btn.disabled = false;
     btn.textContent = 'Save Project';
+  }
+
+  // Clear planning image
+  function clearPlanning() {
+    document.getElementById('field-planning').value = '';
+    previewFromUrl('', 'planning');
   }
 
   // TOAST
