@@ -120,14 +120,14 @@
     .slider-label-before, .slider-label-after { display: none; }
 
     /* Planning tab */
-    .project-tabs { display: flex; background: var(--ink); }
-    .project-tab { flex: 1; padding: 0.55rem; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; color: rgba(255,255,255,0.5); transition: all 0.2s; }
-    .project-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
-    .project-tab:hover { color: var(--white); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
     .project-media { position: relative; }
     .planning-img { width: 100%; height: 280px; object-fit: cover; object-position: center; display: block; }
+    .project-meta { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0.75rem 0; }
+    .project-location { background: var(--gold); color: var(--white); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.7rem; }
+    .project-plan-link { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; padding: 0.3rem 0; border-bottom: 1px solid var(--muted); transition: color 0.2s, border-color 0.2s; }
+    .project-plan-link:hover { color: var(--gold); border-color: var(--gold); }
 
     /* TRUST */
     #trust { background: var(--warm); padding: 5rem 4rem; }
@@ -425,13 +425,15 @@
     // Form submit
     function handleSubmit(btn) { btn.textContent = 'Message Sent ✓'; btn.style.background = '#4a7c59'; btn.disabled = true; }
 
-    // Tab switcher (for planning drawings)
-    function switchTab(btn, tabName) {
-      const media = btn.closest('.project-media');
-      media.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
-      media.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-      media.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    // Toggle planning drawing
+    function togglePlan(btn, sliderId, planId) {
+      const media = btn.closest('.project-card').querySelector('.project-media');
+      const sliderTab = media.querySelector(`[data-tab="${sliderId}"]`);
+      const planTab = media.querySelector(`[data-tab="${planId}"]`);
+      const showingPlan = planTab.classList.contains('active');
+      sliderTab.classList.toggle('active', showingPlan);
+      planTab.classList.toggle('active', !showingPlan);
+      btn.textContent = showingPlan ? '📐 Planning Drawing' : '🔄 Before / After';
     }
 
     // Before/After Slider
@@ -495,20 +497,22 @@
 
         const mediaHtml = hasPlan ? `
           <div class="project-media">
-            <div class="project-tabs">
-              <button class="project-tab active" onclick="switchTab(this, 'slider-${uid}')">Before / After</button>
-              <button class="project-tab" onclick="switchTab(this, 'plan-${uid}')">Planning Drawing</button>
-            </div>
             <div class="tab-content active" data-tab="slider-${uid}">${sliderHtml}</div>
             <div class="tab-content" data-tab="plan-${uid}">
               <img class="planning-img" src="${p.planning_image}" alt="Planning Drawing" />
             </div>
           </div>` : `<div class="project-media">${sliderHtml}</div>`;
 
+        const planLink = hasPlan ? `
+          <button class="project-plan-link" onclick="togglePlan(this, 'slider-${uid}', 'plan-${uid}')">📐 Planning Drawing</button>` : '';
+
         return `
           <div class="project-card reveal${i % 3 === 1 ? ' reveal-delay-1' : i % 3 === 2 ? ' reveal-delay-2' : ''}" style="${isFirst ? 'grid-column: span 2;' : ''}">
             ${mediaHtml}
-            <div class="project-location">${p.location}</div>
+            <div class="project-meta">
+              <div class="project-location">${p.location}</div>
+              ${planLink}
+            </div>
             <div class="project-info">
               <div class="project-title">${p.title}</div>
               <p class="project-desc">${p.description || ''}</p>
