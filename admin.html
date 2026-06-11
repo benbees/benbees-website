@@ -83,6 +83,8 @@
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
     .img-preview-wrap { position: relative; }
     .img-preview { width: 100%; height: 160px; object-fit: cover; display: block; border: 1px solid var(--warm); }
+    .img-replace-btn { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; text-align: center; padding: 0.4rem; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; opacity: 0; transition: opacity 0.2s; }
+    .img-preview-wrap:hover .img-replace-btn { opacity: 1; }
     .img-preview-empty { width: 100%; height: 160px; background: var(--warm); border: 2px dashed rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; color: var(--muted); font-size: 0.8rem; cursor: pointer; transition: border-color 0.2s; }
     .img-preview-empty:hover { border-color: var(--gold); color: var(--gold); }
     .img-preview-empty .upload-icon { font-size: 2rem; }
@@ -204,6 +206,7 @@
               <span>Click to upload</span>
             </div>
             <img class="img-preview" id="before-preview-img" style="display:none;" />
+            <div class="img-replace-btn" onclick="document.getElementById('before-upload').click()">📷 Replace Image</div>
             <input class="upload-input" type="file" id="before-upload" accept="image/*" onchange="handleUpload(this, 'before')" />
           </div>
           <div class="form-group" style="margin-top:0.5rem;">
@@ -218,6 +221,7 @@
               <span>Click to upload</span>
             </div>
             <img class="img-preview" id="after-preview-img" style="display:none;" />
+            <div class="img-replace-btn" onclick="document.getElementById('after-upload').click()">📷 Replace Image</div>
             <input class="upload-input" type="file" id="after-upload" accept="image/*" onchange="handleUpload(this, 'after')" />
           </div>
           <div class="form-group" style="margin-top:0.5rem;">
@@ -234,6 +238,7 @@
             <span>Click to upload</span>
           </div>
           <img class="img-preview" id="planning-preview-img" style="display:none;" />
+          <div class="img-replace-btn" onclick="document.getElementById('planning-upload').click()">📷 Replace Image</div>
           <input class="upload-input" type="file" id="planning-upload" accept="image/*" onchange="handleUpload(this, 'planning')" />
         </div>
         <div class="form-group" style="margin-top:0.5rem;">
@@ -467,13 +472,26 @@
     if (url) {
       img.src = url;
       img.style.display = 'block';
+      img.style.cursor = 'pointer';
+      img.title = 'Click to replace image';
       empty.style.display = 'none';
+      // Remove old listener before adding new one
+      img.onclick = null;
       img.onclick = () => document.getElementById(`${type}-upload`).click();
     } else {
       img.style.display = 'none';
+      img.onclick = null;
       empty.style.display = 'flex';
     }
   }
+
+  // Also make sure clicking anywhere in the wrap triggers upload
+  document.addEventListener('DOMContentLoaded', () => {
+    ['before', 'after', 'planning'].forEach(type => {
+      const wrap = document.getElementById(`${type}-preview-empty`);
+      if (wrap) wrap.onclick = () => document.getElementById(`${type}-upload`).click();
+    });
+  });
 
   async function handleUpload(input, type) {
     const file = input.files[0];
