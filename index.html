@@ -29,6 +29,7 @@
     }
     .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 0.6rem; }
     .nav-logo img { width: 36px; height: 36px; object-fit: contain; }
+    .nav-logo .logo-text { display: flex; align-items: baseline; gap: 0; }
     .nav-logo span { color: var(--gold); }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
@@ -51,10 +52,10 @@
     .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
     .btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 2px; transition: color 0.2s; }
     .btn-ghost:hover { color: var(--gold); }
-    .hero-right { position: relative; overflow: hidden; }
+    .hero-right { position: relative; overflow: visible; }
     .hero-right img { width: 100%; height: 100%; object-fit: cover; }
     .hero-right::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(200,151,58,0.15) 0%, transparent 60%); }
-    .hero-badge { position: absolute; bottom: 3rem; left: -2rem; background: var(--white); padding: 1.5rem; box-shadow: 0 20px 60px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 1rem; z-index: 3; }
+    .hero-badge { position: absolute; bottom: 2rem; left: -2rem; background: var(--white); padding: 1.25rem; box-shadow: 0 20px 60px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 1rem; z-index: 3; }
     .hero-badge-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 600; color: var(--gold); line-height: 1; }
     .hero-badge-text { font-size: 0.72rem; color: var(--muted); line-height: 1.5; text-transform: uppercase; letter-spacing: 0.08em; }
 
@@ -222,7 +223,7 @@
 
   <!-- NAV -->
   <nav>
-    <a class="nav-logo" href="#hero"><img src="https://benbees.co.uk/wp-content/uploads/2026/02/cropped-Bee_Only-270x270.png" alt="BenBees logo" />Ben<span>Bees</span></a>
+    <a class="nav-logo" href="#hero"><img src="https://benbees.co.uk/wp-content/uploads/2026/02/cropped-Bee_Only-270x270.png" alt="BenBees logo" /><span class="logo-text">Ben<span>Bees</span></span></a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
