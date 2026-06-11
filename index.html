@@ -125,9 +125,10 @@
     .slider-label-after { right: 0.75rem; background: var(--gold); color: white; }
 
     /* Planning tab */
-    .project-tabs { display: flex; border-bottom: 1px solid rgba(0,0,0,0.06); background: var(--white); }
-    .project-tab { flex: 1; padding: 0.6rem; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: none; border: none; cursor: pointer; color: var(--muted); transition: all 0.2s; border-bottom: 2px solid transparent; margin-bottom: -1px; }
-    .project-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .project-tabs { display: flex; position: absolute; top: 0; left: 0; right: 0; z-index: 10; background: rgba(0,0,0,0.5); }
+    .project-tab { flex: 1; padding: 0.5rem; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; color: rgba(255,255,255,0.6); transition: all 0.2s; }
+    .project-tab.active { color: var(--gold); border-bottom-color: var(--gold); background: rgba(0,0,0,0.3); }
+    .project-tab:hover { color: var(--white); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
     .project-media { position: relative; }
@@ -432,11 +433,11 @@
 
     // Tab switcher (for planning drawings)
     function switchTab(btn, tabName) {
-      const card = btn.closest('.project-card');
-      card.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
-      card.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      const media = btn.closest('.project-media');
+      media.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
+      media.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
       btn.classList.add('active');
-      card.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+      media.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
     }
 
     // Before/After Slider
